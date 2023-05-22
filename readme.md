@@ -1,4 +1,7 @@
-# Particle test system 
+# Smoothed Particle Hydrodynamics (SPH) Fluid Simulator
+
+![Alt text](SPH_images.png)
+
 This should be run in release mode, otherwise the frame rate will be very low, and the simulation will be unstable. 
 ```
 cargo run --release
@@ -54,16 +57,19 @@ cargo run --release
         * Functions to keep track of points in the water mesh
     * flycam.rs is no longer necessary
 
-## Some Things to improve:
-* Make 3d: Current implementation is only 2d, although it should not be too difficult to extend to 3d.
-* Particle interactions: Currently the particles are basically bouncy balls with a bit of damping. Should implement actual SPH algorithm.
-* Visualization:
-    * Sphere implementation could be improved
-    * Marching Cubes
-* Nearest neighbors: Currently checks every particle against every other. Very Slow! Create Octree?
-* Stability: When there are a large number of particles, the simulation can become unstable.
-* Performance: Make it run faster. Run on GPU. Better algorithms?
-* Time Step Control: Currently the sim runs as fast as possible and animates in real time. We need to be able to specify the time step, which could lead to slower real time simulation.  
-* When too many particles are spawned, they start to disappear, and simulation does not behave correctly. 
-    * Maybe a mesh limit?
-    * Numerical Stability?
+## System Architecture Diagram
+![Alt text](system_architecture_image.png)
+
+## SPH Functions Architecture Diagram
+![Alt text](sph_functions_diagram.png)
+
+## Potential Future Work
+* Update SPH Functions
+    * Add a diveregence-free velocity solver and constant density solver to prevent the particles from "exploding" when too many exist within the environment
+    * A good resource to start with: https://www.dankoschier.de/resources/papers/BK15.pdf
+    
+* Create new applications
+    * Ex. water flowing through a pipe, more objects to collide with in the environment, etc.
+
+* Update water mesh visuals
+    * Allow for the water mesh to be multiple colors depending on certain variables such as density or force at individual points
