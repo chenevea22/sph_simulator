@@ -1,0 +1,1 @@
+This particles demo started as a copy-paste from: https://github.com/bevyengine/bevy/blob/release-0.8.1/examples/stress_tests/bevymark.rs

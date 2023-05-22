@@ -1,0 +1,19 @@
+[package]
+name = "particles"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace]
+
+[dependencies]
+bevy = "0.10.1"
+rand = "0.8.5"
+transvoxel = { version = "0.6.0", features = ["bevy_mesh"] } #0.6.0
+bevy_egui = "0.20.3"
+noise = "0.8.2"
+bevy_mod_raycast = { version = "0.8.0" } #0.8.0
+
+[profile.dev.package."*"]
+opt-level = 3
