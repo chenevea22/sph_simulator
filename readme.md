@@ -73,3 +73,5 @@ cargo run --release
 
 * Update water mesh visuals
     * Allow for the water mesh to be multiple colors depending on certain variables such as density or force at individual points
+* Replace cube with space capsule
+    * Space capsule mesh needs to react to the water particles similarly to how the cube mesh did
