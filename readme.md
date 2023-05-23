@@ -101,3 +101,5 @@ cargo run --release
     * Allow for the water mesh to be multiple colors depending on certain variables such as density or force at individual points
 * Replace cube with space capsule
     * Space capsule mesh needs to react to the water particles similarly to how the cube mesh did
+* Fix nearest neighbor algorithm
+    * Current implementation only returns a list of particles within a radius given a point, want to change it to return a list of tuples that consist of two particles. The tuple is a pair of particles that are within eachother's radius.
