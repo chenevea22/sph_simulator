@@ -8,13 +8,15 @@ cargo run --release
 ```
 ## Controls
 * Add More Particles: hold left mouse button
-* Zoom: scroll wheel
+* Zoom: Scroll wheel
 * Pan: Hold scroll wheel
 * Rotate: Hold right mouse button
+* Drop Orion Spacecraft: Press the Spacebar
  
 ## Installations
 * Rust
     * installation link: https://www.rust-lang.org/tools/install
+    * If you have previously installed rust run "rustup update" to update rust to its newest version
 
 ## File Layout
 * main.rs
