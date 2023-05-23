@@ -23,6 +23,8 @@ cargo run --release
     * Outlines the functions lifecycle for each frame
     * Contains functions to spawn particles on mouse clicks
     * Currently contains some functions related to the density mesh, this will be updated soon to move to a new, separate file
+    * render_mesh()
+        * A rendering function that clears the scene by despawning existing models and then calls the load_model function to load and render a new mesh using the provided parameters.
 
 * sph.rs
     * Contains all of the functions needed for particle movement and interactions:
