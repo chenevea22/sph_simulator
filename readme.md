@@ -24,7 +24,19 @@ cargo run --release
     * Contains functions to spawn particles on mouse clicks
     * Currently contains some functions related to the density mesh, this will be updated soon to move to a new, separate file
     * render_mesh()
-        * A rendering function that clears the scene by despawning existing models and then calls the load_model function to load and render a new mesh using the provided parameters.
+        * Clears the scene by despawning existing models and then calls load_model() to load and render a new mesh using the provided parameters
+    * add_grid()
+        * Adds a grid and grid dots to the scene based on the provided parameters, and a cube mesh is created for the grid dots
+    * load_model()
+        * Loads a model into the scene and creates a mesh based on particle positions and model parameters, then applies materials and sets rendering components
+    * scheduled_spawner()
+        * Used to control the rate that particles are spawned
+    * setup()
+        *  Creates text for particle count and FPS, and adds particle scheduler, ambient light, and point light; calls load_materials()
+    * mouse_handler()
+        * Handles the left mouse button being pressed, if it is pressed then spawns a wave of particles
+    * spawn_particles()
+        * Spawns particles using random number generator
 
 * sph.rs
     * Contains all of the functions needed for particle movement and interactions:
