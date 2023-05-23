@@ -45,6 +45,16 @@ cargo run --release
     * box_collision_system()
         * Checks if a particle collides with the box and if so, a force (equal and opposite) is calculated and applied to both the box and the particle(s) that hit it
 
+* octree_nearest_neighbor.rs (WIP: Need to fix and implenent nearest neighbor algorithm. Octree Data Structure is completed)
+    * Octree: A tree data structure that holds the particle information
+        * Splits up the environment into eight cube subsection. Then splits up the cube once the particle limit has been reached.
+        * Octree Node could be a leaf or branch
+            * Branch: A list of octrees
+            * Leaf: Holds a vector of particles in the cube
+    * populate_octree(): Queries through the entity list and populate octree with particles from the entity list
+    * insert(): Insert a point into an octree
+    * nearest_neighbor_list(): Search the octree and create a list that is comprised of tuples of two points that are within eachother's radius
+
 * camera.rs
     * Given Bevy functions that allow the camera to pan around the scene
 

@@ -13,6 +13,7 @@ struct NearestNeightborList {
     list: Vec<Particle>, // Playing with Vecs for now
 }
 
+// Fill up the octree with particles from the environment
 fn populate_octree(
     mut octree: ResMut<Octree>,
     particle_query: Query<(&mut Particle, &Transform, Entity)>,
@@ -33,6 +34,7 @@ fn populate_octree(
     //somehow create nearest neighbors list global variable here
 }
 
+// Particle Point that holds the xyz location alongside the particle ID
 #[derive(Clone, Copy)]
 struct Point3D {
     x: f32,
@@ -42,7 +44,6 @@ struct Point3D {
 }
 
 // An octree node could be either a branch (another octree) or it could be a leaf (which holds the particle data)
-
 enum OctreeNode {
     Branch([Option<Box<OctreeNode>>; 8]),
     Leaf(Vec<Point3D>),
@@ -61,6 +62,9 @@ fn initialize_octree(mut commands: Commands) {
     commands.insert_resource(Octree::new(10));
 }
 
+// Functions for OctreeNode
+// Insert(): Insert a point/particle into the octree
+// get_point_by_index(): Given an idex, return all the branches in the node
 impl OctreeNode {
     // Insert a new point into the octree
     fn insert(
@@ -169,12 +173,21 @@ impl OctreeNode {
             }
         }
     }
+
+    // Given an idex, return all the branches in the node
     fn get_points_by_index() {
         //return all of the points in a single leaf
         //recursive, possibly return empty list of neighbors when next would be out of bounds
     }
 }
 
+// Function for Octree
+// new(): Initiate the tree
+// nearest_neighbor_list(): Create a list that is comprised of tuples of points that are connected to eachother
+// insert(): Insert a point into the current octree
+// tranverse(): Traverse the tree to print out all the points in it
+// search(): Given a point, radius, and octree, search for particles within the radius
+// search_recursive(): Helper function for search()
 impl Octree {
     // Create a new and empty octree object
     fn new(max_depth: usize) -> Self {
@@ -185,6 +198,8 @@ impl Octree {
             center: Vec3::new(0., 0., 0.),
         }
     }
+
+    // Create a list that is comprised of tuples of points that are connected to eachother
     fn nearest_neighbor_list(&self) {
         // Perform bitwise operation to get neighboring cells (size of particle)
         neighbors_offset_list();
@@ -242,6 +257,7 @@ impl Octree {
         }
     }
 
+    // Given a point, radius, and octree, search for particles within the radius
     fn search(&self, center: Point3D, radius: f32) -> Vec<Point3D> {
         let mut points = Vec::new();
         self.search_recursive(&self.root, &center, radius, &mut points);
