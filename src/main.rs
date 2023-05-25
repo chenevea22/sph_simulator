@@ -47,8 +47,12 @@ const SPAWN_WIDTH_RATIO: f32 = 0.25; // ratio of top area used to create particl
 const PARTICLE_RADIUS: f32 = 40.;
 
 const MAIN_BLOCK: BlockDims<f32> = BlockDims {
-    base: [(-SIZE_X / 2.) -100., (-SIZE_Y / 2.) - 100., (-SIZE_Z / 2.) - 100.],
-    size: 1000.0,
+    base: [
+        (-SIZE_X / 2.) - 100.,
+        (-SIZE_Y / 2.) - 100.,
+        (-SIZE_Z / 2.) - 100.,
+    ],
+    size: 2000.,
 };
 
 #[derive(Component)]
@@ -96,7 +100,7 @@ impl Default for ModelParams {
         Self {
             model: Model::NewModel,
             wireframe: false,
-            subdivisions: 15,
+            subdivisions: 30,
             show_grid: false,
             with_transition: false,
         }

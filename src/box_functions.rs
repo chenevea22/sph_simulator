@@ -58,26 +58,43 @@ pub fn box_collision_system(
 
 pub fn add_mesh(
     mut commands: Commands,
+    ass: Res<AssetServer>,
     mut meshes: ResMut<Assets<BevyMesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     input: Res<Input<KeyCode>>,
 ) {
     if input.just_pressed(KeyCode::Space) && unsafe { ORION_CAPSULE_SPAWNED } == false {
         unsafe { ORION_CAPSULE_SPAWNED = true };
-        commands
+        let id = commands
             .spawn(PbrBundle {
-                mesh: meshes.add(BevyMesh::from(shape::Cube::new(BODY_SIZE))),
-                material: materials.add(Color::RED.into()),
-                transform: Transform::from_xyz(-300.0, 3000.0, 0.0),
+                mesh: meshes.add(BevyMesh::from(shape::UVSphere {
+                    radius: 125.,
+                    sectors: 10,
+                    stacks: 10,
+                })),
+                material: materials.add(Color::rgba(1.0, 0.0, 0.0, 0.0).into()),
+                transform: Transform::from_xyz(-300.0, 1000.0, 0.0),
                 ..Default::default()
             })
             .insert(BoxCollision)
             .insert(Body {
                 velocity: Vec3::new(
                     // Set initial velocity
-                    0., 0., 0.,
+                    0., -100., 0.,
                 ),
                 force: Vec3::ZERO,
-            });
+            })
+            .id();
+        let my_gltf = ass.load("space_capsule.glb#Scene0");
+        let mut capsule = commands.spawn(SceneBundle {
+            scene: my_gltf,
+            transform: Transform {
+                translation: Vec3::new(0., -100., 0.),
+                scale: Vec3::new(50., 50., 50.),
+                ..Default::default()
+            },
+            ..Default::default()
+        });
+        capsule.set_parent(id);
     }
 }

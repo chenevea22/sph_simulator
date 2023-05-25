@@ -4,16 +4,16 @@ use crate::{Body, BoxCollision, Particle};
 
 const GRAVITY: f32 = -200.;
 
-const BODY_MASS: f32 = 0.01;
+const BODY_MASS: f32 = 0.005;
 const BODY_SIZE: f32 = 150.;
 
 const PARTICLE_DAMPING: f32 = 10.;
 
 const COEF_REST: f32 = 0.828;
 
-pub const SIZE_X: f32 = 800.;
-pub const SIZE_Y: f32 = 400.;
-pub const SIZE_Z: f32 = 400.;
+pub const SIZE_X: f32 = 1600.;
+pub const SIZE_Y: f32 = 800.;
+pub const SIZE_Z: f32 = 800.;
 
 const PARTICLE_MASS: f32 = 50.;
 const ISOTROPIC_EXPONENT: f32 = 300000.;
@@ -124,7 +124,7 @@ pub fn wall_collision_system(
             body.velocity.x = -1.;
         }
 
-        if body_transform.translation.y < -(half_height - (BODY_SIZE / 2.)) {
+        if body_transform.translation.y < -(half_height - (BODY_SIZE / 2.) - 40.) {
             body.velocity.y = 1.;
         }
 
