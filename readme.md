@@ -8,19 +8,35 @@ cargo run --release
 ```
 ## Controls
 * Add More Particles: hold left mouse button
-* Zoom: scroll wheel
+* Zoom: Scroll wheel
 * Pan: Hold scroll wheel
 * Rotate: Hold right mouse button
+* Drop Orion Spacecraft: Press the Spacebar
  
 ## Installations
 * Rust
     * installation link: https://www.rust-lang.org/tools/install
+    * If you have previously installed rust run "rustup update" to update rust to its newest version
 
 ## File Layout
 * main.rs
     * Outlines the functions lifecycle for each frame
     * Contains functions to spawn particles on mouse clicks
     * Currently contains some functions related to the density mesh, this will be updated soon to move to a new, separate file
+    * render_mesh()
+        * Clears the scene by despawning existing models and then calls load_model() to load and render a new mesh using the provided parameters
+    * add_grid()
+        * Adds a grid and grid dots to the scene based on the provided parameters, and a cube mesh is created for the grid dots
+    * load_model()
+        * Loads a model into the scene and creates a mesh based on particle positions and model parameters, then applies materials and sets rendering components
+    * scheduled_spawner()
+        * Used to control the rate that particles are spawned
+    * setup()
+        *  Creates text for particle count and FPS, and adds particle scheduler, ambient light, and point light; calls load_materials()
+    * mouse_handler()
+        * Handles the left mouse button being pressed, if it is pressed then spawns a wave of particles
+    * spawn_particles()
+        * Spawns particles using random number generator
 
 * sph.rs
     * Contains all of the functions needed for particle movement and interactions:
@@ -40,6 +56,16 @@ cargo run --release
         * Establishes the box's initial dimensions, position, and velocity
     * box_collision_system()
         * Checks if a particle collides with the box and if so, a force (equal and opposite) is calculated and applied to both the box and the particle(s) that hit it
+
+* octree_nearest_neighbor.rs (WIP: Need to fix and implenent nearest neighbor algorithm. Octree Data Structure is completed)
+    * Octree: A tree data structure that holds the particle information
+        * Splits up the environment into eight cube subsection. Then splits up the cube once the particle limit has been reached.
+        * Octree Node could be a leaf or branch
+            * Branch: A list of octrees
+            * Leaf: Holds a vector of particles in the cube
+    * populate_octree(): Queries through the entity list and populate octree with particles from the entity list
+    * insert(): Insert a point into an octree
+    * nearest_neighbor_list(): Search the octree and create a list that is comprised of tuples of two points that are within eachother's radius
 
 * camera.rs
     * Given Bevy functions that allow the camera to pan around the scene
@@ -73,3 +99,7 @@ cargo run --release
 
 * Update water mesh visuals
     * Allow for the water mesh to be multiple colors depending on certain variables such as density or force at individual points
+* Replace cube with space capsule
+    * Space capsule mesh needs to react to the water particles similarly to how the cube mesh did
+* Fix nearest neighbor algorithm
+    * Current implementation only returns a list of particles within a radius given a point, want to change it to return a list of tuples that consist of two particles. The tuple is a pair of particles that are within eachother's radius.
