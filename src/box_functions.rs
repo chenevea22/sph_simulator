@@ -7,7 +7,7 @@ use crate::{Body, BoxCollision, Particle};
 
 const PARTICLE_STIFFNESS: f32 = 0.04;
 
-const BODY_SIZE: f32 = 150.;
+//const BODY_SIZE: f32 = 150.;
 
 static mut ORION_CAPSULE_SPAWNED: bool = false;
 
@@ -16,12 +16,8 @@ pub fn box_collision_system(
     mut particle_query: Query<(&mut Particle, &Transform)>,
     collision_query: Query<(&Handle<BevyMesh>, &mut BoxCollision, &Transform)>,
     mut body_query: Query<(&mut Body, &Transform)>,
-    input: Res<Input<KeyCode>>,
+    _input: Res<Input<KeyCode>>,
 ) {
-    if input.just_pressed(KeyCode::Down) {
-        println!("Down was pressed")
-    }
-
     if !body_query.is_empty() {
         let (mut body, _body_transform) = body_query.get_single_mut().unwrap();
 
@@ -73,14 +69,14 @@ pub fn add_mesh(
                     stacks: 10,
                 })),
                 material: materials.add(Color::rgba(1.0, 0.0, 0.0, 0.0).into()),
-                transform: Transform::from_xyz(-300.0, 1000.0, 0.0),
+                transform: Transform::from_xyz(-300.0, 10000.0, 0.0),
                 ..Default::default()
             })
             .insert(BoxCollision)
             .insert(Body {
                 velocity: Vec3::new(
                     // Set initial velocity
-                    0., -100., 0.,
+                    0., -1000., 0.,
                 ),
                 force: Vec3::ZERO,
             })

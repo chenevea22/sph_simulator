@@ -40,10 +40,6 @@ use box_functions::box_collision_system;
 const SPAWN_RATE: f32 = 5.; // waves of particles created per second
 const SPAWN_WIDTH_RATIO: f32 = 0.25; // ratio of top area used to create particles
 
-// const SIZE_X: f32 = 1600.;
-// const SIZE_Y: f32 = 800.;
-// const SIZE_Z: f32 = 400.;
-
 const PARTICLE_RADIUS: f32 = 40.;
 
 const MAIN_BLOCK: BlockDims<f32> = BlockDims {
@@ -52,7 +48,7 @@ const MAIN_BLOCK: BlockDims<f32> = BlockDims {
         (-SIZE_Y / 2.) - 100.,
         (-SIZE_Z / 2.) - 100.,
     ],
-    size: 2000.,
+    size: 1400.,
 };
 
 #[derive(Component)]
@@ -100,7 +96,7 @@ impl Default for ModelParams {
         Self {
             model: Model::NewModel,
             wireframe: false,
-            subdivisions: 30,
+            subdivisions: 20,
             show_grid: false,
             with_transition: false,
         }
@@ -394,7 +390,7 @@ fn spawn_particles(
     let mut rng = thread_rng(); // create random number generator
 
     let spawn_count = (SPAWN_WIDTH_RATIO * SIZE_X / (PARTICLE_RADIUS)).floor() as usize; // how many particle to spawn
-    let particle_x_source = -SIZE_X / 2.; // left side of the window
+    let particle_x_source = (-SIZE_X / 2.) + PARTICLE_RADIUS; // left side of the window
     let particle_y_source = SIZE_Y / 2.; // top of the window
     let particle_z_source = -0. * SIZE_Z / 2.;
 
